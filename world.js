@@ -12,7 +12,10 @@ import { createDither } from './dither.js';
 const X = 28, Z = 32;           // land size in cells (with the water strip, the chunk is square)
 const WATER_W = 4;              // a narrow strip of water along the promenade, inside the chunk
 const GX = X + WATER_W;         // grid width, including the water strip (and the dock over it)
-const PIX = 1;                  // screen pixels per rendered pixel
+// Phones get a lighter world: a fixed overview (no pan or zoom), coarser pixels, no shadows,
+// fewer particles and effects, and 30 frames a second.
+const MOBILE = matchMedia('(max-width: 820px), (hover: none) and (pointer: coarse)').matches;
+const PIX = MOBILE ? 2 : 1;      // screen pixels per rendered pixel
 const LEVELS = 32;              // colour levels per channel after dithering (more levels = subtler dots)
 const SPEED = 3.6;              // player speed, units / second
 const FOLLOW_ZOOM = 2.7;
@@ -34,7 +37,7 @@ try {
   throw e;
 }
 renderer.setPixelRatio(1);
-renderer.shadowMap.enabled = true;
+renderer.shadowMap.enabled = !MOBILE;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 stage.prepend(renderer.domElement);
 
@@ -1950,7 +1953,11 @@ const smoke = [];
   }
 }
 function updateLife(t, dt) {
-  windUniforms.uTime.value = t;
+  windUniforms.uTime.value = MOBILE ? t * 0.5 : t;   // a gentler sway on phones
+  if (MOBILE) {   // phones skip the small stuff: butterflies, fireflies, water sparkles
+    if (fireflyPoints.visible) { fireflyPoints.visible = false; butterflies.forEach((b) => { b.b.visible = false; }); sparkles.forEach((s) => { s.m.visible = false; }); }
+    return;
+  }
   for (const s of birds) {
     const a = t * s.speed + s.phase;
     const p = V3(Math.cos(a) * s.radius, Math.sin(a * 2) * 0.4, Math.sin(a) * s.radius).add(s.centre).add(s.off);
@@ -2333,6 +2340,7 @@ const ZOOM_RANGE = { overview: [0.8, 7], follow: [1.2, 7] };
 const ZOOM_WALK = 3.6;   // walking somewhere zooms in at least this far
 const overviewTarget = HOME_TARGET.clone();
 function follow() {
+  if (MOBILE) return;   // phones keep the overview
   mode = 'follow';
   overviewBtn.classList.add('show');
 }
@@ -2734,7 +2742,7 @@ const onCart = (e) => { groundPoint(e); return raycaster.intersectObject(cart).l
 // view drifts back to you once you start moving again.
 const panOffset = V3(0, 0, 0);
 let drag = null, dragged = false;
-renderer.domElement.addEventListener('pointerdown', (e) => { if (e.button === 0) { drag = { x: e.clientX, y: e.clientY }; dragged = false; } });
+renderer.domElement.addEventListener('pointerdown', (e) => { if (!MOBILE && e.button === 0) { drag = { x: e.clientX, y: e.clientY }; dragged = false; } });
 addEventListener('pointermove', (e) => {
   if (!drag) return;
   const dx = e.clientX - drag.x, dy = e.clientY - drag.y;
@@ -2782,6 +2790,7 @@ function setHover(id) {
 
 // Scroll (or pinch on a trackpad) to zoom. In the overview, zoom toward the cursor.
 renderer.domElement.addEventListener('wheel', (e) => {
+  if (MOBILE) return;
   e.preventDefault();
   const [lo, hi] = ZOOM_RANGE[mode];
   const old = zoomOf[mode];
@@ -2916,7 +2925,7 @@ function update(dt) {
   else if (seated) move.set(0, 0, 0);
   else if (!car.driving) speed = movePlayer(dt, move, path.length > 0 && !keys.size);
   const moving = speed > 0.12;
-  if (moving && !hinted) { hinted = true; setTimeout(() => hintEl.classList.add('hide'), 1200); }
+  if (moving && !hinted && !MOBILE) { hinted = true; setTimeout(() => hintEl.classList.add('hide'), 1200); }
   // cadence follows ground speed (about one full stride per 0.9 units), so the feet don't skate
   // sprinting lengthens the stride as well as quickening it, so the feet still match the ground
   const pace = Math.max(Math.min(1, speed / SPEED + 0.2), Math.min(1.7, speed / SPEED));
@@ -3001,7 +3010,7 @@ const THEME_BG = { dark: [0, 0, 0], light: [0.953, 0.937, 0.906] };
 const applyTheme = (t) => { dither.setBackground(THEME_BG[t] || THEME_BG.dark); dither.setOutlineColor(t === 'light' ? [0.11, 0.1, 0.09] : [0.96, 0.94, 0.9]); };
 applyTheme(document.documentElement.dataset.theme);
 addEventListener('village:theme', (e) => applyTheme(e.detail));
-const SNOW_N = 1800, snowPos = new Float32Array(SNOW_N * 3), snowSeed = new Float32Array(SNOW_N);
+const SNOW_N = MOBILE ? 350 : 1800, snowPos = new Float32Array(SNOW_N * 3), snowSeed = new Float32Array(SNOW_N);
 for (let n = 0; n < SNOW_N; n++) {
   snowPos[n * 3] = wx(rnd() * GX); snowPos[n * 3 + 1] = rnd() * 4.5; snowPos[n * 3 + 2] = wz(rnd() * Z);
   snowSeed[n] = rnd() * 10;
@@ -3069,7 +3078,14 @@ function updateYouMarkers() {
   pointer2.firstChild.style.transform = `rotate(${ang}rad) translateX(26px)`;
 }
 
+let skip = false;
+if (MOBILE) {   // a hint at the top instead of keyboard controls; tap it to dismiss
+  hintEl.textContent = 'Psst… this is way more fun on a desktop ;)';
+  hintEl.classList.add('mobile');
+  hintEl.addEventListener('click', () => hintEl.classList.add('hide'));
+}
 function frame() {
+  if (MOBILE && (skip = !skip)) { requestAnimationFrame(frame); return; }   // every other frame
   const dt = Math.min(0.05, clock.getDelta());
   update(dt);
   updateSeason(dt);

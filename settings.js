@@ -42,7 +42,11 @@ function setTheme(t) {
   root.dataset.theme = t; store.set('theme', t); render();
   dispatchEvent(new CustomEvent('village:theme', { detail: t }));
 }
-const openMenu = (open) => { menu.hidden = !open; seasonBtn.setAttribute('aria-expanded', String(open)); };
+const openMenu = (open) => {
+  menu.hidden = !open; seasonBtn.setAttribute('aria-expanded', String(open));
+  // on phones the rail is a bar across the page: drop the menu just below the button
+  if (open && matchMedia('(max-width: 820px)').matches) menu.style.top = `${seasonBtn.getBoundingClientRect().bottom + 6}px`;
+};
 seasonBtn.addEventListener('click', (e) => { e.stopPropagation(); openMenu(menu.hidden); });
 menu.addEventListener('click', (e) => { const b = e.target.closest('[data-season]'); if (b) { setSeason(b.dataset.season); openMenu(false); } });
 addEventListener('click', (e) => { if (!e.target.closest('.season-wrap')) openMenu(false); });

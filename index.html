@@ -222,15 +222,20 @@
 
     /* ---------- Phones: village on top, tabs, then the panel ---------- */
     @media (max-width: 820px) {
-      html, body { height: auto; }
+      html, body { height: auto; overflow-x: hidden; }
       body { overflow: auto; display: flex; flex-direction: column; }
       #stage { position: relative; left: 0; height: 52vh; flex: none; order: 1; }
       #rail { order: 2; flex: none; }
       #panel { order: 3; flex: none; }
       #rail { position: sticky; top: 0; bottom: auto; width: 100%; height: auto; flex-direction: row; justify-content: space-between;
-              padding: 8px 12px; border-right: 0; border-bottom: 1px solid var(--line); overflow-x: auto; }
+              padding: 6px 8px; border-right: 0; border-bottom: 1px solid var(--line); overflow: visible; }
+      .rail-btn, #rail-home { width: 34px; height: 34px; }
+      #rail-sections, #rail-tools { gap: 2px; }
+      #stage canvas { touch-action: pan-y; }
+      #hint.mobile { top: 12px; bottom: auto; pointer-events: auto; cursor: pointer; white-space: normal; text-align: center; max-width: calc(100% - 32px); }
+      #overview, .vignette { display: none; }
       #rail-sections, #rail-tools { flex-direction: row; margin: 0; }
-      .flyout { left: auto; right: 0; top: auto; bottom: 48px; transform: none; }
+      .flyout { position: fixed; left: auto; right: 8px; top: auto; bottom: auto; transform: none; }
       .rail-spacer { display: none; }
       .rail-btn .tip { display: none; }
       #panel { position: static; width: auto; padding: 28px 18px 48px; overflow: visible; }
