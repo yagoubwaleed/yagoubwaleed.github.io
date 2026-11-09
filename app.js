@@ -55,7 +55,7 @@ function itemList(section) {
 function homeView() {
   const links = SECTIONS.map((s) => `<li><a href="${href(s.id)}" data-route="${s.id}">${s.title}</a></li>`).join('');
   return `
-    <div class="avatar big">${AVATAR}</div>
+    <div class="wave" aria-hidden="true">👋🏽</div>
     <div class="intro">${PROFILE.intro.map((l) => `<p>${l}</p>`).join('')}</div>
     <ul class="section-list">${links}</ul>`;
 }
