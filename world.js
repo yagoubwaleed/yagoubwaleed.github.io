@@ -15,7 +15,7 @@ const GX = X + WATER_W;         // grid width, including the water strip (and th
 // Phones get a lighter world: a fixed overview (no pan or zoom), coarser pixels, no shadows,
 // fewer particles and effects, and 30 frames a second.
 const MOBILE = matchMedia('(max-width: 820px), (hover: none) and (pointer: coarse)').matches;
-const PIX = MOBILE ? 2 : 1;      // screen pixels per rendered pixel
+const PIX = 1;                  // screen pixels per rendered pixel
 const LEVELS = 32;              // colour levels per channel after dithering (more levels = subtler dots)
 const SPEED = 3.6;              // player speed, units / second
 const FOLLOW_ZOOM = 2.7;
@@ -2304,7 +2304,8 @@ function updateNpc(n, dt) {
 // ---------- Camera ----------
 const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 300);
 const HOME_TARGET = V3(WATER_W / 2, 0.2, 0);
-const view = { zoom: 1, target: HOME_TARGET.clone() };
+const HOME_ZOOM = MOBILE ? 1.05 : 1;   // phones crop the empty corners so the land fills the strip
+const view = { zoom: HOME_ZOOM, target: HOME_TARGET.clone() };
 const want = { zoom: 1, target: HOME_TARGET.clone() };
 let mode = 'overview';
 let width = 1, height = 1;
@@ -2335,7 +2336,7 @@ function placeCamera() {
   camera.updateProjectionMatrix();
 }
 // Each mode keeps its own zoom; the scroll wheel changes the current one.
-const zoomOf = { overview: 1, follow: FOLLOW_ZOOM };
+const zoomOf = { overview: HOME_ZOOM, follow: FOLLOW_ZOOM };
 const ZOOM_RANGE = { overview: [0.8, 7], follow: [1.2, 7] };
 const ZOOM_WALK = 3.6;   // walking somewhere zooms in at least this far
 const overviewTarget = HOME_TARGET.clone();
@@ -2346,7 +2347,7 @@ function follow() {
 }
 function overview() {
   mode = 'overview';
-  zoomOf.overview = 1;
+  zoomOf.overview = HOME_ZOOM;
   overviewTarget.copy(HOME_TARGET);
   overviewBtn.classList.remove('show');
 }
@@ -2357,7 +2358,10 @@ const dither = createDither(renderer, { levels: LEVELS, pix: PIX, background: BG
 
 function resize() {
   width = stage.clientWidth; height = stage.clientHeight;
-  dither.setSize(width, height);
+  // phone screens pack 2-3 device pixels per CSS pixel; render at device resolution (up to 2x)
+  // there, or the small world gets blown up into big blocky pixels
+  const dpr = MOBILE ? Math.min(2, devicePixelRatio || 1) : 1;
+  dither.setSize(Math.round(width * dpr), Math.round(height * dpr));
   fitHalf = fitHalfHeight();
   placeCamera();
 }

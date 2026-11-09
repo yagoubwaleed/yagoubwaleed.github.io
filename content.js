@@ -6,7 +6,7 @@ export const PROFILE = {
   intro: [
     "I'm Waleed, I study robot learning at the University of Washington.",
     'I work on making generative policies easy to steer and adapt.',
-    'Welcome to my world.',
+    '<strong>Welcome to my world! :)</strong>',
   ],
 };
 

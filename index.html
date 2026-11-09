@@ -224,7 +224,7 @@
     @media (max-width: 820px) {
       html, body { height: auto; overflow-x: hidden; }
       body { overflow: auto; display: flex; flex-direction: column; }
-      #stage { position: relative; left: 0; height: 52vh; flex: none; order: 1; }
+      #stage { position: relative; left: 0; height: 32vh; height: 32svh; flex: none; order: 1; }
       #rail { order: 2; flex: none; }
       #panel { order: 3; flex: none; }
       #rail { position: sticky; top: 0; bottom: auto; width: 100%; height: auto; flex-direction: row; justify-content: space-between;
@@ -232,7 +232,8 @@
       .rail-btn, #rail-home { width: 34px; height: 34px; }
       #rail-sections, #rail-tools { gap: 2px; }
       #stage canvas { touch-action: pan-y; }
-      #hint.mobile { top: 12px; bottom: auto; pointer-events: auto; cursor: pointer; white-space: normal; text-align: center; max-width: calc(100% - 32px); }
+      #hint.mobile { top: auto; bottom: 8px; padding: 4px 10px; font-size: 11px; pointer-events: auto; cursor: pointer; white-space: nowrap; }
+      .shade { display: none; }
       #overview, .vignette { display: none; }
       #rail-sections, #rail-tools { flex-direction: row; margin: 0; }
       .flyout { position: fixed; left: auto; right: 8px; top: auto; bottom: auto; transform: none; }
