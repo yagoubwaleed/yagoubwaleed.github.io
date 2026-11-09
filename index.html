@@ -103,9 +103,8 @@
     @keyframes rise { from { opacity: 0; transform: translateY(4px); } }
 
     .avatar.big { width: 32px; height: 32px; margin-bottom: 18px; }
-    /* the panel's fade-in animation also targets this element, so name both here */
-    .wave, #panel.in > .wave { font-size: 30px; line-height: 1; margin-bottom: 18px; display: inline-block; transform-origin: 70% 80%;
-                               animation: rise .35s ease both, wave 3s ease-in-out .4s infinite; }
+    .wave { font-size: 30px; line-height: 1; margin-bottom: 18px; }
+    .wave span { display: inline-block; transform-origin: 70% 80%; will-change: transform; animation: wave 2.6s ease-in-out infinite; }
     @keyframes wave { 0%, 45%, 100% { transform: rotate(0); } 7%, 21% { transform: rotate(16deg); } 14%, 28% { transform: rotate(-9deg); } 35% { transform: rotate(8deg); } }
     .intro p { margin: 0; font-size: 20px; line-height: 1.4; letter-spacing: -.01em; }
     .intro { margin-bottom: 40px; }

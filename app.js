@@ -55,7 +55,7 @@ function itemList(section) {
 function homeView() {
   const links = SECTIONS.map((s) => `<li><a href="${href(s.id)}" data-route="${s.id}">${s.title}</a></li>`).join('');
   return `
-    <div class="wave" aria-hidden="true">👋🏽</div>
+    <div class="wave" aria-hidden="true"><span>👋🏽</span></div>
     <div class="intro">${PROFILE.intro.map((l) => `<p>${l}</p>`).join('')}</div>
     <ul class="section-list">${links}</ul>`;
 }
@@ -147,4 +147,5 @@ document.getElementById('rail-home').innerHTML = `<span class="avatar">${AVATAR}
 
 render(parse(new URLSearchParams(location.search).get('p')));
 // The sidebar is up; let it paint, then build the world (the slow part) behind a loader.
-requestAnimationFrame(() => requestAnimationFrame(() => import('./world.js')));
+// (a short wait lets the sidebar fade in before the build ties up the page)
+setTimeout(() => import('./world.js'), 450);
