@@ -55,6 +55,7 @@ wand.addEventListener('click', (e) => {
   root.style.setProperty('--fx-font', `"${font}"`);
   root.style.setProperty('--fx-scale', scale);
   root.classList.add('fx');
+  root.dataset.fx = fx;   // the avatar picks up a matching filter (index.html)
   setEmoji(pick(EMOJI.filter((x) => x !== emoji)));
   dispatchEvent(new CustomEvent('village:fx', { detail: { fx, bg: hexRgb(bg), light } }));
   reset.hidden = false;
@@ -63,6 +64,7 @@ reset.addEventListener('click', (e) => {
   e.stopPropagation();
   for (const v of VARS) root.style.removeProperty(v);
   root.classList.remove('fx');
+  delete root.dataset.fx;
   setEmoji(DEFAULT_EMOJI);
   dispatchEvent(new CustomEvent('village:fx', { detail: null }));
   reset.hidden = true;

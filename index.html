@@ -197,6 +197,20 @@
     .fx .label:hover, .fx .label.active { background: var(--text); color: var(--bg); }
     .fx .shade { background: radial-gradient(ellipse 80% 80% at 50% 50%, transparent 48%, color-mix(in srgb, var(--bg) 60%, transparent) 100%); }
     .fx #hint { color: var(--muted); }
+    /* the profile picture takes on the same look as the world (same order as EFFECTS in fx.js) */
+    .avatar, .you-pointer { position: relative; }
+    .avatar img, .you-pointer img { transition: filter .3s; }
+    [data-fx="1"] :is(.avatar, .you-pointer) img { filter: grayscale(1) sepia(1) hue-rotate(40deg) saturate(2.2) brightness(.8) contrast(1.4); }
+    [data-fx="2"] :is(.avatar, .you-pointer) img { filter: grayscale(1) contrast(1.35); }
+    [data-fx="3"] :is(.avatar, .you-pointer) img { filter: sepia(.9) contrast(1.05); }
+    [data-fx="4"] :is(.avatar, .you-pointer) img { filter: grayscale(1) sepia(1) saturate(6) hue-rotate(200deg) contrast(1.4); }
+    [data-fx="5"] :is(.avatar, .you-pointer) img { filter: invert(1); }
+    [data-fx="6"] :is(.avatar, .you-pointer) img { filter: grayscale(1) sepia(1) saturate(4) hue-rotate(260deg) contrast(1.1); }
+    [data-fx="7"] :is(.avatar, .you-pointer) img { filter: saturate(.45) brightness(1.2) contrast(.85); }
+    [data-fx="8"] :is(.avatar, .you-pointer) img { filter: grayscale(1) contrast(12) brightness(1.1); }
+    [data-fx="9"] :is(.avatar, .you-pointer)::after { content: ''; position: absolute; inset: 0; border-radius: 50%; pointer-events: none;
+      background: repeating-linear-gradient(0deg, rgba(0,0,0,.4) 0 1px, transparent 1px 3px); }
+    [data-fx="10"] :is(.avatar, .you-pointer) img { filter: hue-rotate(200deg) saturate(1.4); }
     .fx .title { font-size: calc(34px * var(--fx-scale)); }
     #overview { top: 16px; right: 60px; cursor: pointer; opacity: 0; pointer-events: none; transition: opacity .3s; }
     #overview.show { opacity: 1; pointer-events: auto; }
