@@ -1,6 +1,7 @@
 // Sidebar: an icon rail plus a content panel. Views are addressed by ?p=section or
 // ?p=section/item. Opening a view walks the character to that view's place in the village.
 import './settings.js';
+import { currentEmoji } from './fx.js';
 import { PROFILE, SECTIONS } from './content.js';
 
 const rail = document.getElementById('rail-sections');
@@ -55,7 +56,7 @@ function itemList(section) {
 function homeView() {
   const links = SECTIONS.map((s) => `<li><a href="${href(s.id)}" data-route="${s.id}">${s.title}</a></li>`).join('');
   return `
-    <div class="wave" aria-hidden="true"><span>👋🏽</span></div>
+    <div class="wave" aria-hidden="true"><span>${currentEmoji()}</span></div>
     <div class="intro">${PROFILE.intro.map((l) => `<p>${l}</p>`).join('')}</div>
     <ul class="section-list">${links}</ul>`;
 }

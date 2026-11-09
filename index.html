@@ -182,7 +182,23 @@
       position: absolute; padding: 6px 12px; border-radius: 999px; font: 13px/1.2 "Geist", sans-serif;
       background: rgba(0, 0, 0, .78); color: var(--text); border: 1px solid #2d2d2d;
     }
-    #overview { top: 16px; right: 16px; cursor: pointer; opacity: 0; pointer-events: none; transition: opacity .3s; }
+    .chip.round { width: 34px; height: 34px; padding: 0; display: grid; place-items: center; cursor: pointer; }
+    .chip.round svg { width: 17px; height: 17px; }
+    .chip.round:hover { border-color: #4a4a4a; }
+    #wand { top: 16px; right: 16px; z-index: 6; }
+    #wand-reset { top: 58px; right: 16px; z-index: 6; }
+    #wand-reset[hidden] { display: none; }
+    /* the wand's random font: body text, titles and the world labels */
+    .fx body, .fx .label, .fx .chip, .fx .bubble { font-family: var(--fx-font), ui-sans-serif, system-ui, sans-serif; }
+    .fx #panel { font-size: calc(15px * var(--fx-scale)); }
+    .fx .intro p { font-size: calc(20px * var(--fx-scale)); }
+    /* wand colours: bubbles, labels and the edge shading follow the random page colour */
+    .fx .label, .fx .chip, .fx .bubble { background: color-mix(in srgb, var(--bg) 88%, transparent); border-color: var(--line); color: var(--text); }
+    .fx .label:hover, .fx .label.active { background: var(--text); color: var(--bg); }
+    .fx .shade { background: radial-gradient(ellipse 80% 80% at 50% 50%, transparent 48%, color-mix(in srgb, var(--bg) 60%, transparent) 100%); }
+    .fx #hint { color: var(--muted); }
+    .fx .title { font-size: calc(34px * var(--fx-scale)); }
+    #overview { top: 16px; right: 60px; cursor: pointer; opacity: 0; pointer-events: none; transition: opacity .3s; }
     #overview.show { opacity: 1; pointer-events: auto; }
     #hint { left: 50%; bottom: 22px; transform: translateX(-50%); pointer-events: none; transition: opacity .6s; white-space: nowrap; color: var(--muted); }
     #hint.hide { opacity: 0; }

@@ -3013,6 +3013,13 @@ const THEME_BG = { dark: [0, 0, 0], light: [0.953, 0.937, 0.906] };
 const applyTheme = (t) => { dither.setBackground(THEME_BG[t] || THEME_BG.dark); dither.setOutlineColor(t === 'light' ? [0.11, 0.1, 0.09] : [0.96, 0.94, 0.9]); };
 applyTheme(document.documentElement.dataset.theme);
 addEventListener('village:theme', (e) => applyTheme(e.detail));
+// the magic wand: a rendering effect and page colour, or back to normal (null)
+addEventListener('village:fx', (e) => {
+  const f = e.detail;
+  dither.setFx(f ? f.fx : 0);
+  if (f) { dither.setBackground(f.bg); dither.setOutlineColor(f.light ? [0.11, 0.1, 0.09] : [0.96, 0.94, 0.9]); }
+  else applyTheme(document.documentElement.dataset.theme);
+});
 const SNOW_N = MOBILE ? 350 : 1800, snowPos = new Float32Array(SNOW_N * 3), snowSeed = new Float32Array(SNOW_N);
 for (let n = 0; n < SNOW_N; n++) {
   snowPos[n * 3] = wx(rnd() * GX); snowPos[n * 3 + 1] = rnd() * 4.5; snowPos[n * 3 + 2] = wz(rnd() * Z);
