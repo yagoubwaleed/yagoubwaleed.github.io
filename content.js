@@ -25,7 +25,7 @@ export const SECTIONS = [
         ['Graduating', '2027'],
         ['Lab', 'WEIRD Lab'],
         ['Advisor', 'Abhishek Gupta'],
-        ['Based in', 'Seattle'],
+        ['Based in', 'Seattle & Bay Area'],
       ],
       body: `
         <p>I'm very excited about building highly generalizable pretrained policies that make adapting to new
