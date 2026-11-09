@@ -2336,7 +2336,7 @@ function placeCamera() {
   camera.updateProjectionMatrix();
 }
 // Each mode keeps its own zoom; the scroll wheel changes the current one.
-const zoomOf = { overview: HOME_ZOOM, follow: MOBILE ? 2.2 : FOLLOW_ZOOM };   // phones: opening a section zooms in to follow you; home zooms back out
+const zoomOf = { overview: HOME_ZOOM, follow: MOBILE ? 4.5 : FOLLOW_ZOOM };   // phones: opening a section zooms in to follow you; home zooms back out
 const ZOOM_RANGE = { overview: [0.8, 7], follow: [1.2, 7] };
 const ZOOM_WALK = 3.6;   // walking somewhere zooms in at least this far
 const overviewTarget = HOME_TARGET.clone();
