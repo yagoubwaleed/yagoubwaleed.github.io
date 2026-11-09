@@ -17,7 +17,7 @@ const FONTS = [
   ['Pixelify Sans', 1], ['VT323', 1.2], ['Silkscreen', 0.82], ['Space Mono', 0.92], ['Instrument Serif', 1.12],
   ['Unbounded', 0.88], ['Fraunces', 1], ['Syne Mono', 0.95], ['Bricolage Grotesque', 1], ['Caveat', 1.3],
 ];
-const EMOJI = ['\u{1F916}', '\u{1F680}', '\u{1F338}', '\u{1F9BE}', '\u{1F6F8}', '\u{1F52E}', '\u{1F419}', '\u{1F308}', '\u{26A1}', '\u{1F9C3}'];
+const EMOJI = ['\u{1F9CC}', '\u{1F30C}', '\u{1F5FF}', '\u{1F9EE}', '\u{1F3B9}', '\u{1F643}', '\u{1F3D4}\u{FE0F}'];   // troll, galaxy, moai, abacus, piano, upside-down face, mountain
 const pick = (a) => a[Math.floor(Math.random() * a.length)];
 const loaded = new Set();
 function loadFont(name) {
