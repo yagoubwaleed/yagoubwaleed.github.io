@@ -209,28 +209,3 @@ export const SECTIONS = [
     empty: 'No posts yet.',
   },
 ];
-
-// Every paper and role links to a reflection post in the blog. To add one, add a line here:
-// [section, item, name] gives a post titled "Reflection: name" and a link to it on that item's page.
-const REFLECTIONS = [
-  ['research', 'learning-flows', 'Flow Pretraining'],
-  ['research', 'dsrl', 'DSRL'],
-  ['research', 'human-video', 'Robot Control from Human Video'],
-  ['experience', 'amazon', 'Amazon 2025'],
-  ['experience', 'amazon', 'Amazon 2026'],
-  ['teaching', 'cse-351', 'CSE 351 TA'],
-  ['teaching', 'ftc', 'FTC/FRC'],
-];
-{
-  const blog = SECTIONS.find((s) => s.id === 'blog');
-  const slug = (t) => t.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
-  for (const [sid, iid, name] of REFLECTIONS) {
-    const section = SECTIONS.find((s) => s.id === sid), item = section.items.find((x) => x.id === iid);
-    const id = `reflection-${slug(name)}`, several = REFLECTIONS.filter((r) => r[0] === sid && r[1] === iid).length > 1;
-    blog.items.push({
-      id, title: `Reflection: ${name}`,
-      page: { pills: [{ label: item.title.split(':')[0], route: `${sid}/${iid}` }], body: '<p>Coming soon.</p>' },
-    });
-    item.page.pills = [...(item.page.pills || []), { label: several ? `Reflection: ${name}` : 'Reflection', route: `blog/${id}` }];
-  }
-}
