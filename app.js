@@ -5,6 +5,13 @@ import './settings.js';
 import { PROFILE, SECTIONS } from './content.js';
 
 const page = document.getElementById('page');
+// Handwritten titles (img/titles/*.png, black ink on transparent). Each is drawn as a mask
+// filled with the text colour, so it follows light/dark and hover like ordinary text.
+const TITLES = { name: [871, 197], about: [339, 104], research: [458, 122], experience: [516, 139], teaching: [1290, 165], fun: [868, 146], blog: [1072, 165] };
+const hand = (key, text, scale) => {
+  const [w, h] = TITLES[key];
+  return `<span class="hw" role="img" aria-label="${text}" style="--src: url(img/titles/${key}.png); width: ${Math.round(w * scale)}px; height: ${Math.round(h * scale)}px"></span>`;
+};
 const ARROW = '<svg class="arrow" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3.5 8.5l5-5M4 3.5h4.5V8"/></svg>';
 const external = (href) => /^(https?:|mailto:)/.test(href);
 
@@ -37,12 +44,13 @@ function sectionRow(s) {
        ${s.items.length ? s.items.map((it) => itemRow(s, it)).join('') : `<p class="empty">${s.empty || 'Nothing here yet.'}</p>`}`;
   return `
     <details class="section" data-route="${s.id}">
-      <summary>${s.title}</summary>
+      <summary>${TITLES[s.id] ? hand(s.id, s.title, 0.24) : s.title}</summary>
       <div class="section-body">${inner}</div>
     </details>`;
 }
 
 page.innerHTML = `
+  <h1 class="name">${hand('name', PROFILE.name, 0.34)}</h1>
   <div class="wave" aria-hidden="true"><span>👋🏽</span></div>
   <div class="intro">${PROFILE.intro.map((l) => `<p>${l}</p>`).join('')}</div>
   <div class="sections">${SECTIONS.map(sectionRow).join('')}</div>`;

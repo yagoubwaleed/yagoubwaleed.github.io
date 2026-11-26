@@ -276,6 +276,10 @@
     body { overflow: auto; }
     #page { max-width: 620px; margin: 0 auto; padding: 96px 24px 120px; }
     .corner-tools { position: fixed; top: 14px; right: 14px; z-index: 10; display: flex; gap: 4px; }
+    .hw { display: inline-block; flex: none; max-width: 100%; background: currentColor;
+          -webkit-mask: var(--src) no-repeat left center / contain; mask: var(--src) no-repeat left center / contain; }
+    .name { margin: 0 0 22px; line-height: 0; color: var(--text); }
+    details.section > summary { padding: 14px 0; }
     .wave { margin-bottom: 18px; }
     .intro { margin-bottom: 44px; }
     .sections { border-top: 1px solid var(--line); }
