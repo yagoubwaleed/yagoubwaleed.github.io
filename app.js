@@ -51,7 +51,7 @@ function sectionRow(s) {
 
 page.innerHTML = `
   <h1 class="name">${hand('name', PROFILE.name, 0.34)}</h1>
-  <div class="wave" aria-hidden="true"><span>👋🏽</span></div>
+  <img class="globe" src="img/globe.png" alt="" width="44" height="44" />
   <div class="intro">${PROFILE.intro.map((l) => `<p>${l}</p>`).join('')}</div>
   <div class="sections">${SECTIONS.map(sectionRow).join('')}</div>`;
 
