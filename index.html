@@ -271,6 +271,10 @@
       .rail-btn .tip { display: none; }
       #panel { position: static; width: auto; padding: 28px 18px 48px; overflow: visible; }
     }
+    /* hand cursors: pointing by default, an open hand over anything you can click, a fist while pressing */
+    html { cursor: url(img/cursor/point.svg) 6 6, auto; }
+    a, button, summary, label, .pill { cursor: url(img/cursor/open.svg) 16 16, pointer; }
+    a:active, button:active, summary:active, label:active, .pill:active { cursor: url(img/cursor/grab.svg) 16 16, grabbing; }
     /* ---------- One centred page of collapsible sections ---------- */
     body { overflow: auto; }
     #page { max-width: 620px; margin: 0 auto; padding: 96px 24px 120px; }

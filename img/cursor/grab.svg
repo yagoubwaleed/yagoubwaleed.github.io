@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+  <!-- a closed fist: four knuckles along the top, the thumb folded across the front -->
+  <g stroke="#111" stroke-width="1.3" stroke-linejoin="round" stroke-linecap="round">
+    <path fill="#fff" d="M7.6 16a2.4 2.4 0 0 1 4.8 0 2.4 2.4 0 0 1 4.8 0 2.4 2.4 0 0 1 4.8 0 2.2 2.2 0 0 1 4.4 0v5c0 3.7-3 6.6-6.6 6.6h-3.2c-3.6 0-6.6-2.9-6.6-6.6z"/>
+    <path fill="none" stroke-width="1" d="M12.4 16v1.6M17.2 16v1.6M22 16v1.6"/>
+    <path fill="none" stroke-width="1.1" d="M8.6 20.4c2.4-1 5.4-1.1 7.8-.2.7.3.7 1.2 0 1.5-2.2.9-5 1-7.4.3"/>
+  </g>
+</svg>
