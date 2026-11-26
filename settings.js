@@ -13,7 +13,8 @@ const tools = document.getElementById('rail-tools');
 tools.insertAdjacentHTML('afterbegin', `<button id="theme-btn" class="rail-btn" aria-label="Toggle light and dark"></button>`);
 const themeBtn = document.getElementById('theme-btn');
 function render() {
-  themeBtn.innerHTML = `${svg(THEME_ICON)}<span class="tip">${root.dataset.theme === 'dark' ? 'Light' : 'Dark'} mode</span>`;
+  themeBtn.innerHTML = svg(THEME_ICON);
+  themeBtn.setAttribute('aria-label', `Switch to ${root.dataset.theme === 'dark' ? 'light' : 'dark'} mode`);
 }
 themeBtn.addEventListener('click', () => {
   root.dataset.theme = root.dataset.theme === 'dark' ? 'light' : 'dark';
