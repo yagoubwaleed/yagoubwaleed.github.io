@@ -71,3 +71,22 @@ page.addEventListener('toggle', (e) => {
   const route = d.open ? d.dataset.route : d.dataset.route.split('/').slice(0, -1).join('/');
   history.replaceState(null, '', route ? `?p=${route}` : location.pathname);
 }, true);
+
+// The tab icon spins like the globe on the page: redraw the icon a few times a second.
+// (Chrome, Edge and Firefox follow changes to the icon; Safari keeps the still one.)
+{
+  const icon = document.querySelector('link[rel="icon"][sizes="64x64"]'), img = new Image();
+  const c = document.createElement('canvas'); c.width = c.height = 64;
+  const g = c.getContext('2d');
+  img.onload = () => {
+    for (const l of document.querySelectorAll('link[rel="icon"]')) if (l !== icon) l.remove();   // one icon to update
+    let a = 0;
+    setInterval(() => {
+      a += (Math.PI * 2) / (24 * 8);   // one turn every 24 seconds at 8 frames a second, like the page globe
+      g.clearRect(0, 0, 64, 64);
+      g.save(); g.translate(32, 32); g.rotate(a); g.drawImage(img, -32, -32, 64, 64); g.restore();
+      icon.href = c.toDataURL('image/png');
+    }, 125);
+  };
+  img.src = 'img/globe-64.png';
+}
