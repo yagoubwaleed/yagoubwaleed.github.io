@@ -279,7 +279,10 @@
           -webkit-mask: var(--src) no-repeat left center / contain; mask: var(--src) no-repeat left center / contain; }
     .name { margin: 0 0 22px; line-height: 0; color: var(--text); }
     details.section > summary { padding: 14px 0; }
-    .globe { display: block; width: 44px; height: 44px; margin-bottom: 18px; border-radius: 50%; animation: spin 24s linear infinite; }
+    .hello { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; }
+    .globe { display: block; width: 44px; height: 44px; border-radius: 50%; animation: spin 24s linear infinite; }
+    .einstein { display: block; height: 48px; width: auto; animation: wave-head 1.6s ease-in-out infinite alternate; }
+    @keyframes wave-head { from { transform: rotate(-12deg); } to { transform: rotate(12deg); } }
     @keyframes spin { to { transform: rotate(360deg); } }
     .intro { margin-bottom: 44px; }
     .sections { border-top: 1px solid var(--line); }
