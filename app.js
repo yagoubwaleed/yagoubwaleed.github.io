@@ -1,7 +1,6 @@
 // Sidebar: an icon rail plus a content panel. Views are addressed by ?p=section or
-// ?p=section/item. Opening a view walks the character to that view's place in the village.
+// ?p=section/item.
 import './settings.js';
-import { currentEmoji } from './fx.js';
 import { PROFILE, SECTIONS } from './content.js';
 
 const rail = document.getElementById('rail-sections');
@@ -56,7 +55,7 @@ function itemList(section) {
 function homeView() {
   const links = SECTIONS.map((s) => `<li><a href="${href(s.id)}" data-route="${s.id}">${s.title}</a></li>`).join('');
   return `
-    <div class="wave" aria-hidden="true"><span>${currentEmoji()}</span></div>
+    <div class="wave" aria-hidden="true"><span>👋🏽</span></div>
     <div class="intro">${PROFILE.intro.map((l) => `<p>${l}</p>`).join('')}</div>
     <ul class="section-list">${links}</ul>`;
 }
@@ -101,10 +100,6 @@ function render(route, { walk = true } = {}) {
   document.title = section ? `${item ? item.title : section.title} · ${PROFILE.name}` : PROFILE.name;
   for (const a of rail.querySelectorAll('.rail-btn')) a.classList.toggle('on', a.dataset.route === route.s);
   document.getElementById('rail-home').classList.toggle('on', !route.s);
-  if (walk) {
-    window.__villageGo = placeOf(route) || 'overview';   // remembered for the world if it hasn't loaded yet
-    dispatchEvent(new CustomEvent('village:go', { detail: window.__villageGo }));
-  }
 }
 
 function navigate(str, opts = {}) {
@@ -123,30 +118,8 @@ document.addEventListener('click', (e) => {
 });
 addEventListener('popstate', () => render(parse(new URLSearchParams(location.search).get('p'))));
 
-// Clicking a building or label in the village opens its section.
-addEventListener('village:select', (e) => {
-  const s = SECTIONS.find((x) => x.place === e.detail) ||
-    SECTIONS.find((x) => x.items?.some((it) => it.place === e.detail));
-  if (!s) return;
-  const it = s.place === e.detail ? null : s.items.find((x) => x.place === e.detail);
-  navigate(it ? `${s.id}/${it.id}` : s.id);
-});
-
-// Walking up to a place yourself opens its page, unless you're already reading it.
-addEventListener('village:arrive', (e) => {
-  if (placeOf(current) === e.detail) return;
-  for (const s of SECTIONS) {
-    const it = s.items?.find((x) => x.place === e.detail);
-    if (it) return navigate(`${s.id}/${it.id}`, { walk: false });
-    if (s.place === e.detail && current.s !== s.id) return navigate(s.id, { walk: false });
-  }
-});
-
 // ---------- Avatar: a pixel portrait on a true 50×50 grid (img/avatar.png), shown enlarged ----------
 const AVATAR = '<img src="img/avatar@8x.png" alt="" width="50" height="50" />';
 document.getElementById('rail-home').innerHTML = `<span class="avatar">${AVATAR}</span><span class="tip">Home</span>`;
 
 render(parse(new URLSearchParams(location.search).get('p')));
-// The sidebar is up; let it paint, then build the world (the slow part) behind a loader.
-// (a short wait lets the sidebar fade in before the build ties up the page)
-setTimeout(() => import('./world.js'), 450);
