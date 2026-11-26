@@ -271,17 +271,6 @@
       .rail-btn .tip { display: none; }
       #panel { position: static; width: auto; padding: 28px 18px 48px; overflow: visible; }
     }
-    /* hand cursors (3D hands from Microsoft's Fluent Emoji, MIT licence): pointing by default,
-       an open hand over anything you can click, a fist while pressing. !important so they win
-       over the cursor: pointer rules elsewhere. */
-    html, body { cursor: url(img/cursor/point.png) 2 3, auto;
-                 cursor: image-set(url(img/cursor/point.png) 1x, url(img/cursor/point@2x.png) 2x) 2 3, auto; }
-    a, button, summary, label, .pill, details > summary, .rail-btn, .chip {
-      cursor: url(img/cursor/open.png) 16 16, pointer !important;
-      cursor: image-set(url(img/cursor/open.png) 1x, url(img/cursor/open@2x.png) 2x) 16 16, pointer !important; }
-    a:active, button:active, summary:active, label:active, .pill:active, details > summary:active, .rail-btn:active {
-      cursor: url(img/cursor/grab.png) 16 16, grabbing !important;
-      cursor: image-set(url(img/cursor/grab.png) 1x, url(img/cursor/grab@2x.png) 2x) 16 16, grabbing !important; }
     /* ---------- One centred page of collapsible sections ---------- */
     body { overflow: auto; }
     #page { max-width: 620px; margin: 0 auto; padding: 96px 24px 120px; }
