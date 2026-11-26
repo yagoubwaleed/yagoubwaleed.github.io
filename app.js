@@ -50,8 +50,10 @@ function sectionRow(s) {
 }
 
 page.innerHTML = `
-  <h1 class="name">${hand('name', PROFILE.name, 0.34)}</h1>
-  <div class="hello" aria-hidden="true"><img class="globe" src="img/globe.png" alt="" width="44" height="44" /><img class="einstein" src="img/einstein.png" alt="" height="48" /></div>
+  <div class="masthead">
+    <h1 class="name">${hand('name', PROFILE.name, 0.34)}</h1>
+    <div class="hello" aria-hidden="true"><img class="globe" src="img/globe.png" alt="" width="44" height="44" /><img class="einstein" src="img/einstein.png" alt="" height="48" /></div>
+  </div>
   <div class="intro">${PROFILE.intro.map((l) => `<p>${l}</p>`).join('')}</div>
   <div class="sections">${SECTIONS.map(sectionRow).join('')}</div>`;
 
