@@ -1,8 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
-  <!-- a pointing hand, tipped so the index finger points up and to the left -->
-  <g transform="rotate(-32 16 17)" stroke="#111" stroke-width="1.3" stroke-linejoin="round" stroke-linecap="round">
-    <path fill="#fff" d="M13 3c-1.1 0-2 .9-2 2v10.6l-1.3-1.2c-.9-.8-2.3-.7-3 .3-.6.8-.5 1.9.1 2.7l4 5.4c1.3 1.8 3.3 2.9 5.5 2.9h3.2c3.5 0 6.3-2.8 6.3-6.3V16c0-1.1-.9-2-2-2s-2 .9-2 2v-1c0-1.1-.9-2-2-2s-2 .9-2 2v-1c0-1.1-.9-2-2-2h-.8V5c0-1.1-.9-2-2-2z"/>
-    <path fill="none" stroke-width="1" d="M17.8 14.2v3.2M21.8 15.2v3M15 13.2v4.2"/>
-    <path fill="none" stroke-width=".9" d="M12.1 5.6c.4-.6 1.4-.6 1.8 0"/>
-  </g>
-</svg>
