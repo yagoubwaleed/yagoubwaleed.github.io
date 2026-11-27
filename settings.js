@@ -7,7 +7,7 @@ const store = {
 const THEME_ICON = '<circle cx="12" cy="12" r="8.5"/><path d="M12 3.5a8.5 8.5 0 0 1 0 17z" fill="currentColor"/>';   // half-filled circle
 const svg = (paths) => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">${paths}</svg>`;
 
-root.dataset.theme = store.get('theme', 'dark');
+root.dataset.theme = store.get('theme', 'light');   // light unless the visitor has picked dark
 
 const tools = document.getElementById('rail-tools');
 tools.insertAdjacentHTML('afterbegin', `<button id="theme-btn" class="rail-btn" aria-label="Toggle light and dark"></button>`);
